@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1050117516648",
+    "project_id": "ambu-project",
+    "storage_bucket": "ambu-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050117516648:android:90b293cdd9e1aa1d6f7add",
+        "android_client_info": {
+          "package_name": "com.example.ambuproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050117516648-tpr5klndo1srjpuo2ahojgcd6on0rh71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrMztXn6QTy99lViC0K9ovj2h4MGdQzyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050117516648-tpr5klndo1srjpuo2ahojgcd6on0rh71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050117516648:android:31d2d413d63a43796f7add",
+        "android_client_info": {
+          "package_name": "com.example.ambuxproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050117516648-tpr5klndo1srjpuo2ahojgcd6on0rh71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrMztXn6QTy99lViC0K9ovj2h4MGdQzyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050117516648-tpr5klndo1srjpuo2ahojgcd6on0rh71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
