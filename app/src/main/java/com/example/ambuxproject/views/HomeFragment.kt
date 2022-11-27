@@ -1,14 +1,10 @@
 package com.example.ambuxproject.views
 
-import android.os.Binder
+
 import android.os.Bundle
 import android.view.*
-import android.widget.AdapterView
 import androidx.fragment.app.Fragment
-import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.replace
-import androidx.navigation.fragment.findNavController
+import androidx.core.view.get
 import com.example.ambuxproject.R
 import com.example.ambuxproject.databinding.FragmentHomeBinding
 
@@ -22,8 +18,14 @@ class HomeFragment : Fragment() {
     ): View? {
          binding = FragmentHomeBinding.inflate(layoutInflater)
 
+
+        // Todo implement the default selected item
         // for the first time when we will be opening the app we want to show the portion of ambulance/Map
-         replaceFragment(AppMainServicesHomeFragment())
+        binding.bottomNavigationMenu.menu.findItem(R.id.fragment_person_details).setChecked(false)
+        binding.bottomNavigationMenu. menu.findItem(R.id.fragmet_settings).setChecked(false)
+        binding.bottomNavigationMenu.menu.findItem(R.id.fragment_map_main).setChecked(true)
+        // Todo to be implemented
+        replaceFragment(AppMainServicesHomeFragment())
 
         //trigger and navigate accordingly according to the item selected in bottom navigation menu
         binding.bottomNavigationMenu.setOnItemSelectedListener {
@@ -45,11 +47,13 @@ class HomeFragment : Fragment() {
 
 
     private fun replaceFragment(fragment: Fragment){
+
         val fragmentManager = childFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_container_of_home_fragment,fragment)
         fragmentTransaction.commit()
     }
+
 
 
 
