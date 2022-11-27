@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/fragment_person_details"
+    android:icon="@drawable/ic_baseline_person_24"
+    android:title="User Information"
+    />
+    <item
+        android:id="@+id/fragment_map_main"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Book an Ambulance"
+        />
+    <item
+        android:id="@+id/fragmet_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Settings"
+        />
+
+
+</menu>
