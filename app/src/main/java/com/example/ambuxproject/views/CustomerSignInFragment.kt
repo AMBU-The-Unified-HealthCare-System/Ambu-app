@@ -20,7 +20,7 @@ import com.example.ambuxproject.viewmodel.AuthViewModel
 import com.google.firebase.auth.FirebaseUser
 
 
-class SignInFragment : Fragment() {
+class CustomerSignInFragment : Fragment() {
 
     private lateinit var etUserEmail: EditText
     private lateinit var etUserPassword : EditText
@@ -32,8 +32,6 @@ class SignInFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
 

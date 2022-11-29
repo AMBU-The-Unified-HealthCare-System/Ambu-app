@@ -17,7 +17,7 @@ import com.example.ambuxproject.R
 import com.example.ambuxproject.viewmodel.AuthViewModel
 
 
-class SignUpFragment : Fragment() {
+class CustomerSignUpFragment : Fragment() {
 
     private lateinit var etUserEmail: EditText
     private lateinit var etUserPassword : EditText

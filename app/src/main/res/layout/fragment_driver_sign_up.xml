@@ -7,13 +7,13 @@
     >
 
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:alpha="1"
-            android:background="#4E0D3A" />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="1"
+        android:background="#4E0D3A" />
 
 
     <com.google.android.material.card.MaterialCardView
@@ -111,7 +111,6 @@
         android:text="Already Registered ? Sign In here"
         android:textColor="#37B3A7"
         android:textSize="14sp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +120,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Customer"
+        android:text="Driver"
         android:textColor="#D6BABA"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/materialCardView"

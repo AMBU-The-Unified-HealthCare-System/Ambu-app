@@ -7,10 +7,9 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.ambuxproject.views.SignUpFragment"
+        android:name="com.example.ambuxproject.views.CustomerSignUpFragment"
         android:label="SignUpFragment"
         tools:layout="@layout/fragment_sign_up"
-
         >
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
@@ -19,7 +18,7 @@
     <fragment
         tools:layout="@layout/fragment_sign_in"
         android:id="@+id/signInFragment"
-        android:name="com.example.ambuxproject.views.SignInFragment"
+        android:name="com.example.ambuxproject.views.CustomerSignInFragment"
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
@@ -36,5 +35,14 @@
         <action
             android:id="@+id/action_homeFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverOrCustomerFragment"
+        android:name="com.example.ambuxproject.views.DriverOrCustomerFragment"
+        android:label="fragment_driver_or_customer"
+        tools:layout="@layout/fragment_driver_or_customer" >
+        <action
+            android:id="@+id/action_driverOrCustomerFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
 </navigation>

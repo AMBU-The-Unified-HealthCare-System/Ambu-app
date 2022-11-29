@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import com.example.ambuxproject.R
 
 
-class UserDetailsFragment : Fragment() {
-
-
+class DriverOrCustomerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_details, container, false)
+        return inflater.inflate(R.layout.fragment_driver_or_customer, container, false)
     }
+
 
 }
