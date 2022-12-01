@@ -15,6 +15,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.ambuxproject.R
 import com.example.ambuxproject.viewmodel.AuthViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.database.DatabaseReference
 
 
 class CustomerSignUpFragment : Fragment() {
@@ -23,11 +26,8 @@ class CustomerSignUpFragment : Fragment() {
     private lateinit var etUserPassword : EditText
     private lateinit var btnSignUp : Button
     private lateinit var tvSignInhere : TextView
-    private lateinit var viewModel : AuthViewModel
+    private lateinit var authViewModel : AuthViewModel
     private lateinit var navController: NavController
-
-
-
 
 
     override fun onCreateView(
@@ -55,7 +55,7 @@ class CustomerSignUpFragment : Fragment() {
             val pass: String = etUserPassword.text.toString()
 
             if(email.isNotEmpty() && pass.isNotEmpty()){
-                viewModel.registerUser(email,pass)
+                authViewModel.registerCustomer(email,pass)
             }else{
                  Toast.makeText(activity, "A", Toast.LENGTH_SHORT).show()
             }
@@ -66,9 +66,9 @@ class CustomerSignUpFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
-        viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
+        authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
 
-        viewModel.getUserData().observe(viewLifecycleOwner, Observer{
+        authViewModel.getUserData().observe(viewLifecycleOwner, Observer{
                 firebaseUser ->
             if(firebaseUser != null){
                 navController.navigate(R.id.action_signUpFragment_to_signInFragment)

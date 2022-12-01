@@ -52,7 +52,7 @@ class CustomerSignInFragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         tvSignUphere.setOnClickListener {
-            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+            navController.navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
         btnSignIn.setOnClickListener {
