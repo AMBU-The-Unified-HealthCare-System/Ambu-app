@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.ambuxproject.views.CustomerSignUpFragment"
+        android:name="com.example.ambuxproject.views.customer.CustomerSignUpFragment"
         android:label="SignUpFragment"
         tools:layout="@layout/fragment_sign_up"
         >
@@ -18,7 +18,7 @@
     <fragment
         tools:layout="@layout/fragment_sign_in"
         android:id="@+id/signInFragment"
-        android:name="com.example.ambuxproject.views.CustomerSignInFragment"
+        android:name="com.example.ambuxproject.views.customer.CustomerSignInFragment"
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
@@ -29,12 +29,12 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.ambuxproject.views.HomeFragment"
+        android:name="com.example.ambuxproject.views.customer.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/driverOrCustomerFragment"
-        android:name="com.example.ambuxproject.views.DriverOrCustomerFragment"
+        android:name="com.example.ambuxproject.views.customer.DriverOrCustomerFragment"
         android:label="fragment_driver_or_customer"
         tools:layout="@layout/fragment_driver_or_customer" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/driverSignInFragment"
-        android:name="com.example.ambuxproject.views.DriverSignInFragment"
+        android:name="com.example.ambuxproject.views.driver.DriverSignInFragment"
         android:label="DriverSignInFragment"
         tools:layout="@layout/fragment_driver_sign_in">
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/driverSignUpFragment"
-        android:name="com.example.ambuxproject.views.DriverSignUpFragment"
+        android:name="com.example.ambuxproject.views.driver.DriverSignUpFragment"
         android:label="DriverSignUpFragment"
         tools:layout="@layout/fragment_driver_sign_up">
         <action

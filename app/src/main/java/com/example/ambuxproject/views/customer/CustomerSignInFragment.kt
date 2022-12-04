@@ -1,4 +1,4 @@
-package com.example.ambuxproject.views
+package com.example.ambuxproject.views.customer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,14 +17,19 @@ import com.example.ambuxproject.R
 import com.example.ambuxproject.viewmodel.AuthViewModel
 
 
-class DriverSignUpFragment : Fragment() {
+class CustomerSignInFragment : Fragment() {
 
     private lateinit var etUserEmail: EditText
     private lateinit var etUserPassword : EditText
-    private lateinit var btnSignUp : Button
-    private lateinit var tvSignInhere : TextView
-    private lateinit var authViewModel : AuthViewModel
+    private lateinit var btnSignIn : Button
+    private lateinit var tvSignUphere : TextView
+    private lateinit var viewModel : AuthViewModel
     private lateinit var navController: NavController
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
 
     override fun onCreateView(
@@ -32,48 +37,47 @@ class DriverSignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_driver_sign_up, container, false)
+        return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        etUserEmail = view.findViewById(R.id.et_user_mail)
-        etUserPassword = view.findViewById(R.id.et_password)
-        btnSignUp = view.findViewById(R.id.btn_register)
-        tvSignInhere = view.findViewById(R.id.tv_login_state)
+        etUserEmail = view.findViewById(R.id.et_signIn_mail)
+        etUserPassword = view.findViewById(R.id.et_signIn_password)
+        btnSignIn = view.findViewById(R.id.btn_login)
+        tvSignUphere = view.findViewById(R.id.tv_login_statea)
         navController = Navigation.findNavController(view)
 
-        tvSignInhere.setOnClickListener {
-            navController.navigate(R.id.action_driverSignUpFragment_to_driverSignInFragment)
+        tvSignUphere.setOnClickListener {
+            navController.navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
-        btnSignUp.setOnClickListener {
+        btnSignIn.setOnClickListener {
             val email: String = etUserEmail.text.toString()
             val pass: String = etUserPassword.text.toString()
 
             if(email.isNotEmpty() && pass.isNotEmpty()){
-                authViewModel.registerDriver(email,pass)
+                viewModel.signIn(email,pass)
+
             }else{
                 Toast.makeText(activity, "A", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
 
-        authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
-
-        authViewModel.getUserData().observe(viewLifecycleOwner, Observer{
+        viewModel.getUserData().observe(viewLifecycleOwner, Observer {
                 firebaseUser ->
-            if(firebaseUser != null){
-                navController.navigate(R.id.action_driverSignUpFragment_to_driverSignInFragment)
-
+            if( firebaseUser != null){
+                navController.navigate(R.id.action_signInFragment_to_homeFragment)
             }
-
-        })
+        } )
         super.onActivityCreated(savedInstanceState)
     }
+
+
+
 
 }

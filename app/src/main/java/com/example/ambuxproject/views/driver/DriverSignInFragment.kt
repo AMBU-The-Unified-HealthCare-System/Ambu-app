@@ -1,4 +1,4 @@
-package com.example.ambuxproject.views
+package com.example.ambuxproject.views.driver
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,14 +13,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.ambuxproject.R
 import com.example.ambuxproject.viewmodel.AuthViewModel
-import com.google.firebase.auth.FirebaseUser
 
 
-class CustomerSignInFragment : Fragment() {
+class DriverSignInFragment : Fragment() {
+
 
     private lateinit var etUserEmail: EditText
     private lateinit var etUserPassword : EditText
@@ -40,7 +38,7 @@ class CustomerSignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+        return inflater.inflate(R.layout.fragment_driver_sign_in, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,11 +46,11 @@ class CustomerSignInFragment : Fragment() {
         etUserEmail = view.findViewById(R.id.et_signIn_mail)
         etUserPassword = view.findViewById(R.id.et_signIn_password)
         btnSignIn = view.findViewById(R.id.btn_login)
-        tvSignUphere = view.findViewById(R.id.tv_login_statea)
+        tvSignUphere = view.findViewById(R.id.tv_login_state)
         navController = Navigation.findNavController(view)
 
         tvSignUphere.setOnClickListener {
-            navController.navigate(R.id.action_signInFragment_to_signUpFragment)
+            navController.navigate(R.id.action_driverSignInFragment_to_driverSignUpFragment)
         }
 
         btnSignIn.setOnClickListener {
@@ -74,12 +72,12 @@ class CustomerSignInFragment : Fragment() {
         viewModel.getUserData().observe(viewLifecycleOwner, Observer {
                 firebaseUser ->
             if( firebaseUser != null){
-                navController.navigate(R.id.action_signInFragment_to_homeFragment)
+//                navController.navigate(R.id.action_signInFragment_to_homeFragment)
+                Toast.makeText(activity,"Driver Made",Toast.LENGTH_SHORT).show()
             }
         } )
         super.onActivityCreated(savedInstanceState)
     }
-
 
 
 

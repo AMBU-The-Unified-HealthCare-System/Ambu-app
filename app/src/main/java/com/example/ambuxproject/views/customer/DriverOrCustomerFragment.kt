@@ -1,4 +1,4 @@
-package com.example.ambuxproject.views
+package com.example.ambuxproject.views.customer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

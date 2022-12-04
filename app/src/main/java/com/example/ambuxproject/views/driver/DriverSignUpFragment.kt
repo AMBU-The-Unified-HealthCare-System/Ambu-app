@@ -1,4 +1,4 @@
-package com.example.ambuxproject.views
+package com.example.ambuxproject.views.driver
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,12 +15,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.ambuxproject.R
 import com.example.ambuxproject.viewmodel.AuthViewModel
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.database.DatabaseReference
 
 
-class CustomerSignUpFragment : Fragment() {
+class DriverSignUpFragment : Fragment() {
 
     private lateinit var etUserEmail: EditText
     private lateinit var etUserPassword : EditText
@@ -35,7 +32,7 @@ class CustomerSignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+        return inflater.inflate(R.layout.fragment_driver_sign_up, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +44,7 @@ class CustomerSignUpFragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         tvSignInhere.setOnClickListener {
-                   navController.navigate(R.id.action_signUpFragment_to_signInFragment)
+            navController.navigate(R.id.action_driverSignUpFragment_to_driverSignInFragment)
         }
 
         btnSignUp.setOnClickListener {
@@ -55,9 +52,9 @@ class CustomerSignUpFragment : Fragment() {
             val pass: String = etUserPassword.text.toString()
 
             if(email.isNotEmpty() && pass.isNotEmpty()){
-                authViewModel.registerCustomer(email,pass)
+                authViewModel.registerDriver(email,pass)
             }else{
-                 Toast.makeText(activity, "A", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "A", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -71,8 +68,8 @@ class CustomerSignUpFragment : Fragment() {
         authViewModel.getUserData().observe(viewLifecycleOwner, Observer{
                 firebaseUser ->
             if(firebaseUser != null){
-                navController.navigate(R.id.action_signUpFragment_to_signInFragment)
-                Toast.makeText(activity, "H", Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.action_driverSignUpFragment_to_driverSignInFragment)
+
             }
 
         })
