@@ -72,8 +72,8 @@ class DriverSignInFragment : Fragment() {
         viewModel.getUserData().observe(viewLifecycleOwner, Observer {
                 firebaseUser ->
             if( firebaseUser != null){
-//                navController.navigate(R.id.action_signInFragment_to_homeFragment)
-                Toast.makeText(activity,"Driver Made",Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.action_driverSignInFragment_to_homeFragmentDriver)
+//                Toast.makeText(activity,"Driver Made",Toast.LENGTH_SHORT).show()
             }
         } )
         super.onActivityCreated(savedInstanceState)
