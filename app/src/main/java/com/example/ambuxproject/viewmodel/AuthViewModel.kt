@@ -7,6 +7,7 @@ import com.example.ambuxproject.repository.Authentication
 import com.google.firebase.auth.FirebaseUser
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
+
     private var repository : Authentication
     private var userData: MutableLiveData<FirebaseUser>
     private var loggedStatus : MutableLiveData<Boolean>
@@ -25,11 +26,12 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     init{
-         repository = Authentication(application)
-         userData = repository.getFirebaseUserMutableLiveData()
-         loggedStatus = repository.getFirebaseUserLoggedInState()
-         currentUserId = repository.getCurrentUserId()
-      }
+
+        repository = Authentication(application)
+        userData = repository.getFirebaseUserMutableLiveData()
+        loggedStatus = repository.getFirebaseUserLoggedInState()
+        currentUserId = repository.getCurrentUserId()
+    }
 
     fun registerCustomer(email : String , password : String){
         repository.registerCustomer(email, password)
