@@ -24,13 +24,13 @@ class HomeFragment : Fragment() {
         binding.bottomNavigationMenu. menu.findItem(R.id.fragmet_settings).setChecked(false)
         binding.bottomNavigationMenu.menu.findItem(R.id.fragment_map_main).setChecked(true)
         // Todo to be implemented
-        replaceFragment(AppMainServicesHomeFragment())
+        replaceFragment(CustomerMapsFragment())
 
         //trigger and navigate accordingly according to the item selected in bottom navigation menu
         binding.bottomNavigationMenu.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.fragmet_settings -> replaceFragment(AppSettingsFragment())
-                R.id.fragment_map_main -> replaceFragment(AppMainServicesHomeFragment())
+                R.id.fragment_map_main -> replaceFragment(CustomerMapsFragment())
                 R.id.fragment_person_details -> replaceFragment(UserDetailsFragment())
                 else ->{
 

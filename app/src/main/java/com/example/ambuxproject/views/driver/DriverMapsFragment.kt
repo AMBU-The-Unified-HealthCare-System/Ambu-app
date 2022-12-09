@@ -1,52 +1,83 @@
 package com.example.ambuxproject.views.driver
 
 import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Build
 import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.ambuxproject.R
 import com.example.ambuxproject.databinding.FragmentDriverMapsBinding
 import com.example.ambuxproject.others.TrackingUtility
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
-import kotlin.math.E
 
-class DriverMapsFragment : Fragment() , GoogleApiClient.ConnectionCallbacks ,
-    GoogleApiClient.OnConnectionFailedListener ,LocationListener,EasyPermissions.PermissionCallbacks{
+
+class DriverMapsFragment : Fragment() ,EasyPermissions.PermissionCallbacks,
+    GoogleMap.OnMyLocationButtonClickListener,
+    GoogleMap.OnMyLocationClickListener
+    {
 
     private lateinit var binding  : FragmentDriverMapsBinding
-    private lateinit var mMap : GoogleMap
+    private lateinit var fusedLocationClient : FusedLocationProviderClient
+    private lateinit var  currentLocation : Location
+    private lateinit var map : GoogleMap
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,18f))
-
+    private val callback = OnMapReadyCallback {
+            googleMap ->
+        map = googleMap
+        googleMap.setOnMyLocationButtonClickListener(this)
+        googleMap.setOnMyLocationClickListener  (this)
+        enableMyLocation()
     }
+
+    override fun onMyLocationButtonClick(): Boolean {
+        Toast.makeText(requireContext(), "MyLocation button clicked", Toast.LENGTH_SHORT)
+            .show()
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false
+    }
+
+    override fun onMyLocationClick(p0: Location) {
+        Toast.makeText(requireContext(), "Current location:\n$p0", Toast.LENGTH_LONG)
+            .show()
+    }
+
+//    override fun onMapReady(p0: GoogleMap) {
+//        TODO("Not yet implemented")
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) : View? {
-      requestPermissions()
+        requestPermissions()
         binding = FragmentDriverMapsBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -54,25 +85,10 @@ class DriverMapsFragment : Fragment() , GoogleApiClient.ConnectionCallbacks ,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+
         mapFragment?.getMapAsync(callback)
-
     }
 
-    override fun onConnected(p0: Bundle?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onConnectionSuspended(p0: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onConnectionFailed(p0: ConnectionResult) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onLocationChanged(p0: Location) {
-        TODO("Not yet implemented")
-    }
 
     private fun requestPermissions(){
         if(TrackingUtility.hasLocationPermissions(requireContext())){
@@ -106,6 +122,7 @@ class DriverMapsFragment : Fragment() , GoogleApiClient.ConnectionCallbacks ,
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        enableMyLocation()
         TODO("Not yet implemented")
     }
 
@@ -117,4 +134,25 @@ class DriverMapsFragment : Fragment() , GoogleApiClient.ConnectionCallbacks ,
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this)
     }
+
+
+    private fun enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            map.isMyLocationEnabled = true
+            return
+        }else{
+            requestPermissions()
+        }
+
+    }
+
+
+
 }

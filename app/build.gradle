@@ -65,6 +65,8 @@ dependencies {
     // For developers using AndroidX in their applications
     implementation 'pub.devrel:easypermissions:3.0.0'
 
+    implementation "com.google.android.gms:play-services-location:15.0.1"
 
+    implementation 'com.github.chintan369:Geo-FireStore-Query:latest-version'
 
 }

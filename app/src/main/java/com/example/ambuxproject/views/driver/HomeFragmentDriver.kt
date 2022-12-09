@@ -6,11 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ambuxproject.R
-import com.example.ambuxproject.databinding.FragmentHomeBinding
 import com.example.ambuxproject.databinding.FragmentHomeDriverBinding
-import com.example.ambuxproject.views.customer.AppMainServicesHomeFragment
-import com.example.ambuxproject.views.customer.AppSettingsFragment
-import com.example.ambuxproject.views.customer.UserDetailsFragment
 
 
 class HomeFragmentDriver : Fragment() {
