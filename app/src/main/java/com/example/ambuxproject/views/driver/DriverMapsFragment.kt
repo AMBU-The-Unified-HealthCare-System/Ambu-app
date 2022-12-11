@@ -2,6 +2,7 @@ package com.example.ambuxproject.views.driver
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Application
 import android.location.Location
 import android.location.LocationRequest
 import android.os.Build
@@ -11,9 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.ViewModelProviders
 import com.example.ambuxproject.R
 import com.example.ambuxproject.databinding.FragmentDriverMapsBinding
 import com.example.ambuxproject.others.TrackingUtility
+import com.example.ambuxproject.viewmodel.AuthViewModel
+import com.firebase.geofire.GeoFire
+import com.firebase.geofire.GeoLocation
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -23,6 +28,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -36,7 +43,8 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
     private lateinit var  lastLocation : Location
     private lateinit var map : GoogleMap
     private lateinit var googleApiClient: GoogleApiClient
-  private lateinit var locationRequest:com.google.android.gms.location.LocationRequest
+   private lateinit var locationRequest:com.google.android.gms.location.LocationRequest
+   private lateinit var authViewModel : AuthViewModel
 
 
     @SuppressLint("MissingPermission")
@@ -79,11 +87,21 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
     }
 
     override fun onLocationChanged(p0: Location?) {
+
+
+
         if (p0 != null) {
             lastLocation = p0
             var latLng = LatLng(p0.latitude,p0.longitude)
             map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
             map.animateCamera(CameraUpdateFactory.zoomTo(16f))
+
+            val userId : String = authViewModel.getCurrentUserId()!!
+
+            val driverAvailabilityRef : DatabaseReference = FirebaseDatabase.getInstance().reference.child("Driver Available")
+
+            val geoFire : GeoFire = GeoFire(driverAvailabilityRef)
+            geoFire.setLocation(userId, GeoLocation(p0.latitude,p0.longitude))
         }
     }
 
@@ -103,6 +121,7 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
     ) : View? {
         requestPermissions()
         binding = FragmentDriverMapsBinding.inflate(layoutInflater)
+        authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         return binding.root
     }
 
@@ -156,6 +175,17 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val userId : String = authViewModel.getCurrentUserId()!!
+
+        val driverAvailabilityRef : DatabaseReference = FirebaseDatabase.getInstance().reference.child("Driver Available")
+
+        val geoFire : GeoFire = GeoFire(driverAvailabilityRef)
+        geoFire.removeLocation(userId)
+
     }
 
     }
