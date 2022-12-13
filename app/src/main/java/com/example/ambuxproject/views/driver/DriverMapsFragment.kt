@@ -158,7 +158,6 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-
         TODO("Not yet implemented")
     }
 
