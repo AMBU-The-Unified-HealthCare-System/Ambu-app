@@ -1,6 +1,7 @@
 package com.example.ambuxproject.views.driver
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -76,6 +77,9 @@ class DriverSignInFragment : Fragment() {
 //                Toast.makeText(activity,"Driver Made",Toast.LENGTH_SHORT).show()
             }
         } )
+        if(viewModel.getCurrentUserId() == null){
+            Log.d("SignIn/","Checking")
+        }
         super.onActivityCreated(savedInstanceState)
     }
 

@@ -4,19 +4,21 @@ package com.example.ambuxproject.views.customer
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.example.ambuxproject.R
 import com.example.ambuxproject.databinding.FragmentHomeBinding
+import com.example.ambuxproject.viewmodel.AuthViewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-
+   private lateinit var viewModel: AuthViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
          binding = FragmentHomeBinding.inflate(layoutInflater)
-
+         viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
 
         // Todo implement the default selected item
         // for the first time when we will be opening the app we want to show the portion of ambulance/Map
@@ -51,9 +53,5 @@ class HomeFragment : Fragment() {
         fragmentTransaction.replace(R.id.frame_container_of_home_fragment,fragment)
         fragmentTransaction.commit()
     }
-
-
-
-
 
 }

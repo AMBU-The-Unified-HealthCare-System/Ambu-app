@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -27,11 +29,11 @@ class DriverSignUpFragment : Fragment() {
     private lateinit var navController: NavController
 
 
-    override fun onCreateView(
+    override fun onCreateView (
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_driver_sign_up, container, false)
     }
 
@@ -69,9 +71,7 @@ class DriverSignUpFragment : Fragment() {
                 firebaseUser ->
             if(firebaseUser != null){
                 navController.navigate(R.id.action_driverSignUpFragment_to_driverSignInFragment)
-
             }
-
         })
         super.onActivityCreated(savedInstanceState)
     }

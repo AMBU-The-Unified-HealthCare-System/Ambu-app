@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class Authentication(application: Application) {
+
     private var application : Application
     private var firebaseMutableLiveData: MutableLiveData<FirebaseUser>
     private var auth: FirebaseAuth
@@ -74,6 +75,7 @@ class Authentication(application: Application) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful){
             firebaseMutableLiveData.postValue(auth.currentUser)
+              firebaseUserLoggedInState.postValue(true)
             }else{
                 Toast.makeText(application,it.exception?.message,Toast.LENGTH_SHORT).show()
             }
@@ -82,7 +84,8 @@ class Authentication(application: Application) {
 
     fun signOut(){
         auth.signOut()
-        firebaseUserLoggedInState.postValue(true)
+        firebaseUserLoggedInState.postValue(false)
     }
+
 
 }

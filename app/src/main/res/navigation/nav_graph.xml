@@ -31,7 +31,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.ambuxproject.views.customer.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/driverOrCustomerFragment"
         android:name="com.example.ambuxproject.views.DriverOrCustomerFragment"
@@ -69,5 +73,9 @@
         android:id="@+id/homeFragmentDriver"
         android:name="com.example.ambuxproject.views.driver.HomeFragmentDriver"
         android:label="fragment_home_driver"
-        tools:layout="@layout/fragment_home_driver" />
+        tools:layout="@layout/fragment_home_driver" >
+        <action
+            android:id="@+id/action_homeFragmentDriver_to_driverSignUpFragment"
+            app:destination="@id/driverSignUpFragment" />
+    </fragment>
 </navigation>

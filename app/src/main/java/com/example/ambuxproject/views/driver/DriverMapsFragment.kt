@@ -8,10 +8,12 @@ import android.location.LocationRequest
 import android.os.Build
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.ambuxproject.R
 import com.example.ambuxproject.databinding.FragmentDriverMapsBinding
@@ -30,36 +32,33 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.currentCoroutineContext
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
 
 class DriverMapsFragment : Fragment() ,EasyPermissions.PermissionCallbacks,
 GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
-        com.google.android.gms.location.LocationListener
-{
+        com.google.android.gms.location.LocationListener {
 
     private lateinit var binding  : FragmentDriverMapsBinding
     private lateinit var  lastLocation : Location
     private lateinit var map : GoogleMap
     private lateinit var googleApiClient: GoogleApiClient
-   private lateinit var locationRequest:com.google.android.gms.location.LocationRequest
-   private lateinit var authViewModel : AuthViewModel
+    private lateinit var locationRequest:com.google.android.gms.location.LocationRequest
+    private lateinit var authViewModel : AuthViewModel
+
+
 
 
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback {
             googleMap ->
         map = googleMap
-
         buildGoogleBuildApi()
         if(TrackingUtility.hasLocationPermissions(requireContext())){
             map.isMyLocationEnabled = true
         }
-
-
-
-
     }
 
     @SuppressLint("MissingPermission")
@@ -87,9 +86,6 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
     }
 
     override fun onLocationChanged(p0: Location?) {
-
-
-
         if (p0 != null) {
             lastLocation = p0
             var latLng = LatLng(p0.latitude,p0.longitude)
@@ -97,10 +93,9 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
             map.animateCamera(CameraUpdateFactory.zoomTo(16f))
 
             val userId : String = authViewModel.getCurrentUserId()!!
-
             val driverAvailabilityRef : DatabaseReference = FirebaseDatabase.getInstance().reference.child("Driver Available")
-
             val geoFire : GeoFire = GeoFire(driverAvailabilityRef)
+
             geoFire.setLocation(userId, GeoLocation(p0.latitude,p0.longitude))
         }
     }
@@ -110,7 +105,6 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
             .addApi(LocationServices.API).build()
-
         googleApiClient.connect()
     }
 
@@ -179,13 +173,18 @@ GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,
 
     override fun onStop() {
         super.onStop()
-        val userId : String = authViewModel.getCurrentUserId()!!
-
-        val driverAvailabilityRef : DatabaseReference = FirebaseDatabase.getInstance().reference.child("Driver Available")
-
-        val geoFire : GeoFire = GeoFire(driverAvailabilityRef)
-        geoFire.removeLocation(userId)
-
+        Log.d("Driverbhai/","On Stop Invoked")
+        disconnectDriver()
     }
+
+    private fun disconnectDriver(){
+        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+          val userId : String = authViewModel.getCurrentUserId()!!
+         val driverAvailabilityRef : DatabaseReference = FirebaseDatabase.getInstance().reference.child("Driver Available")
+         val geoFire : GeoFire = GeoFire(driverAvailabilityRef)
+        Log.d("Driverbhai/", userId)
+        geoFire.removeLocation(userId)
+        Log.d("Driverbhai/","Disconnect Driver called")
+      }
 
     }
