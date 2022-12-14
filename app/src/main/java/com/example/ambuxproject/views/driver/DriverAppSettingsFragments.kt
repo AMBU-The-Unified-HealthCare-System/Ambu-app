@@ -27,8 +27,10 @@ class DriverAppSettingsFragments : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentDriverAppSettingsFragmentsBinding.inflate(layoutInflater)
      authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
+
         binding.btnSignOut.setOnClickListener {
             Log.d("Driverbhai/","Sign Out called")
             authViewModel.signOut()
